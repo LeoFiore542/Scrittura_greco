@@ -2,12 +2,21 @@ import type { GrammarIssue } from '../grammar/types'
 
 interface Props {
   issues: GrammarIssue[]
+  open: boolean
+  onClose: () => void
 }
 
-export function IssuesPanel({ issues }: Props) {
+export function IssuesPanel({ issues, open, onClose }: Props) {
+  if (!open) return null
+
   return (
-    <aside className="issues" aria-live="polite">
-      <h2>Controllo basilare</h2>
+    <aside className="issues-sheet" aria-live="polite">
+      <div className="issues-sheet-header">
+        <h2>Controllo basilare</h2>
+        <button type="button" className="issues-close" onClick={onClose} aria-label="Chiudi avvisi">
+          Chiudi
+        </button>
+      </div>
       <p className="issues-hint">
         Lessico di base e diacritici. L’analisi AI arriverà in seguito.
       </p>

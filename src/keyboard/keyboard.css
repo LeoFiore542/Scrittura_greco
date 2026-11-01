@@ -1,62 +1,79 @@
+.keyboard-dock {
+  flex-shrink: 0;
+  padding: 0.55rem 0.65rem calc(0.55rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(20, 30, 38, 0.96);
+  border-top: 1px solid rgba(201, 162, 39, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
 .keyboard {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  padding: 0.75rem;
-  background: linear-gradient(180deg, #24343f 0%, #1a272f 100%);
-  border-radius: 12px;
-  border: 1px solid rgba(201, 162, 39, 0.25);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  gap: 0.45rem;
+  max-width: 980px;
+  margin: 0 auto;
 }
 
 .keyboard-row {
-  display: flex;
-  justify-content: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.keyboard-row:last-child {
+  grid-template-columns: 1fr;
 }
 
 .key {
-  min-width: 2.4rem;
-  height: 2.6rem;
-  padding: 0 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  --key-h: clamp(3rem, 6.2vh, 3.75rem);
+  min-height: var(--key-h);
+  height: var(--key-h);
+  min-width: 0;
+  padding: 0 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   background: #2f4250;
   color: #f3efe6;
   font-family: 'Literata', 'Noto Serif', serif;
-  font-size: 1.15rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
   line-height: 1;
   cursor: pointer;
-  transition: background 0.12s ease, transform 0.08s ease;
   touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 0.1s ease, transform 0.08s ease;
+  display: grid;
+  place-items: center;
 }
 
-.key:hover {
-  background: #3a5162;
+.key-label {
+  pointer-events: none;
 }
 
-.key:active {
-  transform: translateY(1px);
+.key:active,
+.key.key-pressed {
+  transform: scale(0.97);
   background: #1e2c36;
 }
 
 .key-dia {
   color: #e6c35c;
-  min-width: 2.2rem;
-  font-size: 1.35rem;
+  font-size: clamp(1.35rem, 2.8vw, 1.7rem);
 }
 
 .key-space {
-  min-width: min(22rem, 70vw);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
 }
 
 .key-shift,
 .key-enter,
 .key-backspace {
-  min-width: 3.4rem;
-  font-size: 0.95rem;
   font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
 }
 
 .key-active {
@@ -65,15 +82,20 @@
   border-color: #e6c35c;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 900px) and (orientation: landscape) {
   .key {
-    min-width: 1.9rem;
-    height: 2.35rem;
-    font-size: 1rem;
-    padding: 0 0.35rem;
+    --key-h: clamp(2.85rem, 7.5vh, 3.5rem);
+  }
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  .keyboard-row {
+    gap: 0.3rem;
   }
 
-  .key-space {
-    min-width: min(16rem, 75vw);
+  .key {
+    --key-h: clamp(2.75rem, 5.8vh, 3.25rem);
+    border-radius: 10px;
+    font-size: clamp(1.05rem, 3.6vw, 1.25rem);
   }
 }

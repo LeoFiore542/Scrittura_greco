@@ -21,7 +21,7 @@ export function Editor({ onEditorReady, onIssues, onTextChange }: Props) {
         heading: { levels: [1, 2] },
       }),
       Placeholder.configure({
-        placeholder: 'Γράφε ἐνθάδε… Scrivi in greco antico…',
+        placeholder: 'Γράφε ἐνθάδε… Tocca la tastiera sotto…',
       }),
       GrammarHighlight,
     ],
@@ -31,6 +31,13 @@ export function Editor({ onEditorReady, onIssues, onTextChange }: Props) {
         class: 'prose-greek',
         spellcheck: 'false',
         lang: 'grc',
+        // Suppress system soft keyboard on tablets; use on-screen Greek keyboard.
+        inputmode: 'none',
+        enterkeyhint: 'done',
+        autocomplete: 'off',
+        autocorrect: 'off',
+        autocapitalize: 'off',
+        virtualkeyboardpolicy: 'manual',
       },
     },
   })
@@ -41,6 +48,11 @@ export function Editor({ onEditorReady, onIssues, onTextChange }: Props) {
 
   useEffect(() => {
     if (!editor) return
+
+    const el = editor.view.dom as HTMLElement
+    el.setAttribute('inputmode', 'none')
+    el.setAttribute('enterkeyhint', 'done')
+    el.setAttribute('virtualkeyboardpolicy', 'manual')
 
     let timer: ReturnType<typeof setTimeout> | undefined
     let generation = 0

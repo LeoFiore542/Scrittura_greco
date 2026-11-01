@@ -2,6 +2,9 @@ import type { Editor } from '@tiptap/react'
 
 interface Props {
   editor: Editor | null
+  issuesOpen: boolean
+  issueCount: number
+  onToggleIssues: () => void
 }
 
 function downloadText(filename: string, content: string, mime: string) {
@@ -14,7 +17,7 @@ function downloadText(filename: string, content: string, mime: string) {
   URL.revokeObjectURL(url)
 }
 
-export function Toolbar({ editor }: Props) {
+export function Toolbar({ editor, issuesOpen, issueCount, onToggleIssues }: Props) {
   const disabled = !editor
 
   return (
@@ -23,7 +26,7 @@ export function Toolbar({ editor }: Props) {
         <span className="brand-mark">αβ</span>
         <div>
           <p className="brand-name">Scrittura Greco</p>
-          <p className="brand-sub">Editor politonico</p>
+          <p className="brand-sub">Tablet · politonico</p>
         </div>
       </div>
 
@@ -31,16 +34,16 @@ export function Toolbar({ editor }: Props) {
         <button
           type="button"
           disabled={disabled}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => editor?.chain().focus().undo().run()}
-          title="Annulla"
         >
           Annulla
         </button>
         <button
           type="button"
           disabled={disabled}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => editor?.chain().focus().redo().run()}
-          title="Ripeti"
         >
           Ripeti
         </button>
@@ -48,6 +51,7 @@ export function Toolbar({ editor }: Props) {
           type="button"
           disabled={disabled}
           className={editor?.isActive('bold') ? 'is-active' : ''}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => editor?.chain().focus().toggleBold().run()}
         >
           Grassetto
@@ -56,6 +60,7 @@ export function Toolbar({ editor }: Props) {
           type="button"
           disabled={disabled}
           className={editor?.isActive('italic') ? 'is-active' : ''}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => editor?.chain().focus().toggleItalic().run()}
         >
           Corsivo
@@ -63,6 +68,7 @@ export function Toolbar({ editor }: Props) {
         <button
           type="button"
           disabled={disabled}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => {
             if (!editor) return
             editor.commands.clearContent(true)
@@ -74,6 +80,7 @@ export function Toolbar({ editor }: Props) {
         <button
           type="button"
           disabled={disabled}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={async () => {
             if (!editor) return
             await navigator.clipboard.writeText(editor.getText())
@@ -84,6 +91,7 @@ export function Toolbar({ editor }: Props) {
         <button
           type="button"
           disabled={disabled}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => {
             if (!editor) return
             downloadText('testo-greco.txt', editor.getText(), 'text/plain;charset=utf-8')
@@ -94,12 +102,23 @@ export function Toolbar({ editor }: Props) {
         <button
           type="button"
           disabled={disabled}
+          onPointerDown={(e) => e.preventDefault()}
           onClick={() => {
             if (!editor) return
             downloadText('testo-greco.md', editor.getText(), 'text/markdown;charset=utf-8')
           }}
         >
           .md
+        </button>
+        <button
+          type="button"
+          className={`issues-toggle${issuesOpen ? ' is-active' : ''}${issueCount > 0 ? ' has-issues' : ''}`}
+          onPointerDown={(e) => e.preventDefault()}
+          onClick={onToggleIssues}
+          aria-pressed={issuesOpen}
+          aria-label={`Avvisi grammaticali${issueCount ? `: ${issueCount}` : ''}`}
+        >
+          Avvisi{issueCount > 0 ? ` (${issueCount})` : ''}
         </button>
       </div>
     </div>
