@@ -4,6 +4,7 @@ import { Editor } from './components/Editor'
 import { Toolbar } from './components/Toolbar'
 import { IssuesPanel } from './components/IssuesPanel'
 import { PolytonicKeyboard } from './keyboard/PolytonicKeyboard'
+import { InstallPrompt } from './components/InstallPrompt'
 import type { GrammarIssue } from './grammar/types'
 import './App.css'
 
@@ -29,6 +30,7 @@ export default function App() {
         issueCount={issues.length}
         onToggleIssues={() => setIssuesOpen((v) => !v)}
       />
+      <InstallPrompt />
       <main className="workspace">
         <div className="workspace-scroll">
           <Editor onEditorReady={onEditorReady} onIssues={onIssues} />

@@ -4,10 +4,13 @@ Editor web per scrivere in **greco antico politonico**, con tastiera digitale e 
 
 ## Funzionalità
 
+- **PWA installabile** (Android/Chrome: Installa; iPad/iPhone: Aggiungi a Home)
+- Pensata tablet-first, con tastiera digitale fissa in basso
 - Foglio di scrittura (TipTap) con grassetto, corsivo, annulla/ripeti
 - Tastiera digitale greca: lettere, spiriti, accenti, iota sottoscritto, dieresi
 - Controllo in tempo reale: forme fuori lessico e diacritici sospetti
 - Esporta `.txt` / `.md`, copia negli appunti
+- Funziona offline dopo la prima visita (service worker)
 
 La grammatica attuale usa un lessico di base. L’interfaccia `GrammarProvider` è pronta per un futuro provider AI.
 

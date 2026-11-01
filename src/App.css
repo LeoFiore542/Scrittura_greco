@@ -8,6 +8,66 @@
   overflow: hidden;
 }
 
+.install-banner {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  padding: 0.7rem 0.9rem;
+  background: linear-gradient(90deg, #2a3d4a, #24343f);
+  color: #f3efe6;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.install-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  font-size: 0.92rem;
+}
+
+.install-banner-text strong {
+  font-family: 'Literata', serif;
+  font-size: 1rem;
+}
+
+.install-banner-text span {
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+.install-banner-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.install-btn,
+.install-dismiss {
+  min-height: 2.6rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  touch-action: manipulation;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.install-btn {
+  background: #c9a227;
+  color: #1c2a33;
+  border-color: #e6c35c;
+}
+
+.install-dismiss {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f3efe6;
+}
+
 .app-glow {
   pointer-events: none;
   position: fixed;
